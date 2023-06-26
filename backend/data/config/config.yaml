@@ -21,6 +21,7 @@ auth:
 
 openai_web:
   is_plus_account: true # 是否为 ChatGPT Plus 用户
+  chatgpt_base_url: https://bypass.churchless.tech/api/
   # 注意：如果你希望使用公共代理，或使用整合的 go-proxy-api，请保持注释；如果需要自定义，注意最后一定要有一个斜杠
   # 在实际请求时，chatgpt_base_url 优先级为：config 内定义 > 环境变量 > revChatGPT 内置的公共代理
   ask_timeout: 600 # 用于限制对话的最长时间

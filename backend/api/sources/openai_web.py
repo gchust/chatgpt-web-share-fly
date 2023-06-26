@@ -140,6 +140,7 @@ def make_session() -> httpx.AsyncClient:
         {
             "Accept": "text/event-stream",
             "Authorization": f"Bearer {credentials.openai_web_access_token}",
+            "PUID": f"{credentials.openai_web_puid}",
             "Content-Type": "application/json",
             "X-Openai-Assistant-App-Id": "",
             "Connection": "close",

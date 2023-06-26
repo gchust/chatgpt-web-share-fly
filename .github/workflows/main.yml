@@ -33,6 +33,16 @@ jobs:
           exclude: '.^'               # Optional, defaults to '.^'
           encoding: 'utf8'            # Optional, defaults to 'utf8'
           path: './backend/data/config'                   # Optional, defaults to '.'
+      - name: set access token
+        uses: mingjun97/file-regex-replace@master
+        with:
+          regex: '<OPENAI_WEB_PUID>'
+          replacement: ${{ secrets.OPENAI_WEB_PUID }}
+          flags: "g"                  # Optional, defaults to "g"
+          include: 'credentials.yaml'    # Optional, defaults to ".*"
+          exclude: '.^'               # Optional, defaults to '.^'
+          encoding: 'utf8'            # Optional, defaults to 'utf8'
+          path: './backend/data/config'                   # Optional, defaults to '.'
       - name: set openai api key
         uses: mingjun97/file-regex-replace@master
         with:
