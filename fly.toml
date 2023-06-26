@@ -1,9 +1,6 @@
 app = "cwsgpt"
 primary_region = "sin"
 
-[mounts]
-  source="cwsgpt"
-  destination="/cws_db"
 [env]
   SWAP = "true"
 
