@@ -13,6 +13,27 @@ jobs:
         with:
           swap-size-gb: 4
       - uses: actions/checkout@v3
+      - uses: TaiStudio/action-edit-YML@v1.0.0
+        with:
+          type: 'single'
+          files: "./backend/data/config/config.yaml"
+          elementSTR: "['data']['mongodb_url']"
+          replace: "<MONGODB_URL>"
+          replaceFor: ${{ secrets.MONGODB_URL }}
+      - uses: TaiStudio/action-edit-YML@v1.0.0
+        with:
+          type: 'single'
+          files: "./backend/data/config/credentials.yaml"
+          elementSTR: "['openai_web_access_token']"
+          replace: "<OPENAI_WEB_ACCESS_TOKEN>"
+          replaceFor: ${{ secrets.OPENAI_WEB_ACCESS_TOKEN }}
+      - uses: TaiStudio/action-edit-YML@v1.0.0
+        with:
+          type: 'single'
+          files: "./backend/data/config/credentials.yaml"
+          elementSTR: "['openai_api_key']"
+          replace: "<OPENAI_API_KEY>"
+          replaceFor: ${{ secrets.OPENAI_API_KEY }}
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
