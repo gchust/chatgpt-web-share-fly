@@ -11,29 +11,38 @@ jobs:
     steps:
       - uses: pierotofy/set-swap-space@v1.0
         with:
-          swap-size-gb: 4
+          swap-size-gb: 8
       - uses: actions/checkout@v3
-      - uses: TaiStudio/action-edit-YML@v1.0.0
+      - name: set mongodb url
+        uses: mingjun97/file-regex-replace@master
         with:
-          type: 'single'
-          files: "./backend/data/config/config.yaml"
-          elementSTR: "['data']['mongodb_url']"
-          replace: "<MONGODB_URL>"
-          replaceFor: ${{ secrets.MONGODB_URL }}
-      - uses: TaiStudio/action-edit-YML@v1.0.0
+          regex: '<MONGODB_URL>'
+          replacement: ${{ secrets.MONGODB_URL }}
+          flags: "g"                  # Optional, defaults to "g"
+          include: 'config.yaml'    # Optional, defaults to ".*"
+          exclude: '.^'               # Optional, defaults to '.^'
+          encoding: 'utf8'            # Optional, defaults to 'utf8'
+          path: './backend/data/config'                   # Optional, defaults to '.'
+      - name: set access token
+        uses: mingjun97/file-regex-replace@master
         with:
-          type: 'single'
-          files: "./backend/data/config/credentials.yaml"
-          elementSTR: "['openai_web_access_token']"
-          replace: "<OPENAI_WEB_ACCESS_TOKEN>"
-          replaceFor: ${{ secrets.OPENAI_WEB_ACCESS_TOKEN }}
-      - uses: TaiStudio/action-edit-YML@v1.0.0
+          regex: '<OPENAI_WEB_ACCESS_TOKEN>'
+          replacement: ${{ secrets.OPENAI_WEB_ACCESS_TOKEN }}
+          flags: "g"                  # Optional, defaults to "g"
+          include: 'credentials.yaml'    # Optional, defaults to ".*"
+          exclude: '.^'               # Optional, defaults to '.^'
+          encoding: 'utf8'            # Optional, defaults to 'utf8'
+          path: './backend/data/config'                   # Optional, defaults to '.'
+      - name: set openai api key
+        uses: mingjun97/file-regex-replace@master
         with:
-          type: 'single'
-          files: "./backend/data/config/credentials.yaml"
-          elementSTR: "['openai_api_key']"
-          replace: "<OPENAI_API_KEY>"
-          replaceFor: ${{ secrets.OPENAI_API_KEY }}
+          regex: '<OPENAI_API_KEY>'
+          replacement: ${{ secrets.OPENAI_API_KEY }}
+          flags: "g"                  # Optional, defaults to "g"
+          include: 'credentials.yaml'    # Optional, defaults to ".*"
+          exclude: '.^'               # Optional, defaults to '.^'
+          encoding: 'utf8'            # Optional, defaults to 'utf8'
+          path: './backend/data/config'                   # Optional, defaults to '.'
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
